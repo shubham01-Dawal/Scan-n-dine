@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan-N-Dine -Menu</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="src/assets/logo.png" type="image/png">
+
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="static/GJC.png" alt="Logo" class="logo">
+                <span class="brand-text">Scan-N-Dine</span>
+            </div>
+            <div class="nav-actions">
+                <div class="cart-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 17.6 16.6 18 16 18H8C7.4 18 7 17.6 7 17V13M9 19.5C9.8 19.5 10.5 20.2 10.5 21S9.8 22.5 9 22.5 7.5 21.8 7.5 21 8.2 19.5 9 19.5ZM20 19.5C20.8 19.5 21.5 20.2 21.5 21S20.8 22.5 20 22.5 18.5 21.8 18.5 21 19.2 19.5 20 19.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Discount Marquee -->
+    <div class="discount-section">
+        <h3 class="discount-title">🔥 Limited Time Offers</h3>
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <div class="discount-card">
+                    <span class="offer-text">Weekend Special</span>
+                    <span class="offer-code">WEEKEND30</span>
+                </div>
+                <div class="discount-card">
+                    <span class="offer-text">First Order</span>
+                    <span class="offer-code">FIRST20</span>
+                </div>
+                <div class="discount-card">
+                    <span class="offer-text">Family Pack</span>
+                    <span class="offer-code">FAMILY25</span>
+                </div>
+                <div class="discount-card">
+                    <span class="offer-text">Student Discount</span>
+                    <span class="offer-code">STUDENT15</span>
+                </div>
+                <div class="discount-card">
+                    <span class="offer-text">Happy Hours</span>
+                    <span class="offer-code">HAPPY40</span>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="discount-card">
+                    <span class="offer-text">Weekend Special</span>
+                    <span class="offer-code">WEEKEND30</span>
+                </div>
+                <div class="discount-card">
+                    <span class="offer-text">First Order</span>
+                    <span class="offer-code">FIRST20</span>
+                </div>
+                <div class="discount-card">
+                    <span class="offer-text">Family Pack</span>
+                    <span class="offer-code">FAMILY25</span>
+                </div>
+                <div class="discount-card">
+                    <span class="offer-text">Student Discount</span>
+                    <span class="offer-code">STUDENT15</span>
+                </div>
+                <div class="discount-card">
+                    <span class="offer-text">Happy Hours</span>
+                    <span class="offer-code">HAPPY40</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-section">
+        <div class="search-container">
+            <div class="search-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <input type="text" id="searchInput" placeholder="Search for delicious food..." class="search-input">
+            <button class="search-filter-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6H20M4 12H20M4 18H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Food Carousel -->
+    <div class="carousel-section">
+        <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide active">
+                    <img src="static/Caro2.png" alt="Breakfast Special">
+                    <div class="carousel-overlay">
+                        <h3>Fresh Breakfast</h3>
+                        <p>Start your day with our healthy options</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="static/Carosal1.png" alt="Lunch Special">
+                    <div class="carousel-overlay">
+                        <h3>Hearty Lunch</h3>
+                        <p>Satisfy your hunger with our lunch combos</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="static/Carosal3.png" alt="Beverages">
+                    <div class="carousel-overlay">
+                        <h3>Refreshing Drinks</h3>
+                        <p>Cool down with our signature beverages</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Navigation -->
+    <div class="category-section">
+        <div class="category-nav">
+            <button class="category-btn active" data-category="breakfast">
+                <img src="static/Breakfast.jpg" alt="Breakfast">
+                <span>Breakfast</span>
+            </button>
+            <button class="category-btn" data-category="lunch">
+                <img src="static/vegThali.png" alt="Lunch">
+                <span>Lunch</span>
+            </button>
+            <button class="category-btn" data-category="beverages">
+                <img src="static/Carosal3.png" alt="Beverages">
+                <span>Beverages</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Food Items -->
+    <div class="menu-section">
+        <div class="menu-container">
+
+
+            <!-- Breakfast Items -->
+            <div class="menu-category active" id="breakfast">
+                <h2 class="category-title">Breakfast Specials</h2>
+                <div class="food-grid">
+                    
+                    <div class="food-card" data-price="20">
+                        <div class="food-image">
+                            <img src="static/Iddli.jpg" alt="Idli">
+                            <button class="add-btn" data-item="Idli" data-price="20">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Idli</h4>
+                            <p>Steamed rice cakes with chutney & sambar</p>
+                            <div class="food-meta">
+                                <span class="price">₹20</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.8</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="30">
+                        <div class="food-image">
+                            <img src="static/Dosa.jpg" alt="Dosa">
+                            <button class="add-btn" data-item="Dosa" data-price="30">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Dosa</h4>
+                            <p>Crispy rice crepe with potato masala</p>
+                            <div class="food-meta">
+                                <span class="price">₹30</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.9</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="25">
+                        <div class="food-image">
+                            <img src="static/Poha.jpg" alt="Poha">
+                            <button class="add-btn" data-item="Poha" data-price="25">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Poha</h4>
+                            <p>Flattened rice with onions, peanuts & spices</p>
+                            <div class="food-meta">
+                                <span class="price">₹25</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="15">
+                        <div class="food-image">
+                            <img src="static/vadapav.jpg" alt="Vada Pav">
+                            <button class="add-btn" data-item="Vada Pav" data-price="15">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Vada Pav</h4>
+                            <p>Spicy potato fritter in a soft bun with chutney</p>
+                            <div class="food-meta">
+                                <span class="price">₹15</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="food-card" data-price="30">
+                        <div class="food-image">
+                            <img src="static/Aloo-Paratha.jpg" alt="Aloo Paratha">
+                            <button class="add-btn" data-item="Aloo Paratha" data-price="30">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Aloo Paratha</h4>
+                            <p>Stuffed flatbread with potato filling & butter.</p>
+                            <div class="food-meta">
+                                <span class="price">₹30</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="20">
+                        <div class="food-image">
+                            <img src="static/patiss.jpg" alt="patis">
+                            <button class="add-btn" data-item="patis" data-price="20">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Patis</h4>
+                            <p>Bread slices dipped in gram flour & deep-fried.</p>
+                            <div class="food-meta">
+                                <span class="price">₹20</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="food-card" data-price="35">
+                        <div class="food-image">
+                            <img src="static/misalpav.jpeg" alt="Misal Pav">
+                            <button class="add-btn" data-item="Misal Pav" data-price="35">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Misal Pav</h4>
+                            <p>Spicy curry with bread, onions & farsan</p>
+                            <div class="food-meta">
+                                <span class="price">₹35</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="25">
+                        <div class="food-image">
+                            <img src="static/meduvada (1).jpg" alt="meduvada">
+                            <button class="add-btn" data-item="Poha" data-price="25">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>meduvada</h4>
+                            <p>Crispy lentil fritters with coconut chutney.</p>
+                            <div class="food-meta">
+                                <span class="price">₹25</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="20">
+                        <div class="food-image">
+                            <img src="static/upma.jpg" alt="Upma">
+                            <button class="add-btn" data-item="Upma" data-price="20">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Upma</h4>
+                            <p>Semolina cooked with vegetables & spices</p>
+                            <div class="food-meta">
+                                <span class="price">₹20</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--------- Lunch Items --------->
+
+                    <div class="menu-category" id="lunch">
+                        <h2 class="category-title">Lunch Delights</h2>
+                        <div class="food-grid">
+                            
+                    <div class="food-card" data-price="120">
+                        <div class="food-image">
+                            <img src="static/VegThalii.jpg" alt="Veg Thali">
+                            <button class="add-btn" data-item="Veg Thali" data-price="120">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Veg Thali</h4>
+                            <p>Complete Indian meal with dal, rice, roti, sabzi & salad</p>
+                            <div class="food-meta">
+                                <span class="price">₹120</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.9</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="90">
+                        <div class="food-image">
+                            <img src="static/vegpulao.jpg" alt="Veg Pulao">
+                            <button class="add-btn" data-item="Veg Pulao" data-price="90">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Veg Pulao</h4>
+                            <p>Fragrant basmati rice cooked with mixed vegetables & spices</p>
+                            <div class="food-meta">
+                                <span class="price">₹90</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="85">
+                        <div class="food-image">
+                            <img src="static/bhajichapati.jpg" alt="Bhaji Chapati">
+                            <button class="add-btn" data-item="Bhaji Chapati" data-price="85">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Bhaji Chapati</h4>
+                            <p>Chapati and spiced vegetables, perfect for lunch</p>
+                            <div class="food-meta">
+                                <span class="price">₹85</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="food-card" data-price="30">
+                        <div class="food-image">
+                            <img src="static/puribhaji.jpg" alt="puribhaji">
+                            <button class="add-btn" data-item="puribhaji" data-price="30">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>puribhaji</h4>
+                            <p>Deep-fried bread with potato curry.</p>
+                            <div class="food-meta">
+                                <span class="price">₹30</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="50">
+                        <div class="food-image">
+                            <img src="static/grilledcheese.jpg" alt="Grilled Cheese Sandwich">
+                            <button class="add-btn" data-item="Grilled Cheese Sandwich" data-price="50">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Grilled Cheese Sandwich</h4>
+                            <p>Toasted sandwich with melted cheese</p>
+                            <div class="food-meta">
+                                <span class="price">₹50</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="80">
+                        <div class="food-image">
+                            <img src="static/Pasta Alfredo.jpg" alt="Pasta Alfredo">
+                            <button class="add-btn" data-item="Pasta Alfredo" data-price="80">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Pasta Alfredo</h4>
+                            <p>Creamy white sauce pasta with veggies</p>
+                            <div class="food-meta">
+                                <span class="price">₹80</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="70">
+                        <div class="food-image">
+                            <img src="static/classicBurger.jpg" alt="Classic Burger">
+                            <button class="add-btn" data-item="Classic Burger" data-price="70">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Classic Burger</h4>
+                            <p>Juicy patty with lettuce, tomato & cheese</p>
+                            <div class="food-meta">
+                                <span class="price">₹70</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+           <!--------- Beverages Items --------->
+
+                            <div class="menu-category" id="beverages">
+                                <h2 class="category-title">Refreshing Beverages</h2>
+                                <div class="food-grid">
+                             
+               <div class="food-card" data-price="10">
+                        <div class="food-image">
+                            <img src="static/tea.jpg" alt="Tea">
+                            <button class="add-btn" data-item="Tea" data-price="10">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Tea</h4>
+                            <p>A hot beverage made by infusing tea leaves in hot water</p>
+                            <div class="food-meta">
+                                <span class="price">₹10</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.8</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="15">
+                        <div class="food-image">
+                            <img src="static/coffee.jpg" alt="Coffee">
+                            <button class="add-btn" data-item="Coffee" data-price="15">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Coffee</h4>
+                            <p>Made from roasted beans. A strong, stimulating drink</p>
+                            <div class="food-meta">
+                                <span class="price">₹15</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="15">
+                        <div class="food-image">
+                            <img src="static/masalachas.png" alt="Coffee">
+                            <button class="add-btn" data-item="Masalachas" data-price="15">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Masalachas</h4>
+                            <p>Spiced buttermilk, a classic Maharashtrian summer beverage.</p>
+                            <div class="food-meta">
+                                <span class="price">₹15</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="food-card" data-price="25">
+                        <div class="food-image">
+                            <img src="static/lassi.jpg" alt="Lassi">
+                            <button class="add-btn" data-item="Lassi" data-price="25">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Lassi</h4>
+                            <p>Traditional sweet yogurt-based drink, cooling and refreshing</p>
+                            <div class="food-meta">
+                                <span class="price">₹25</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="20">
+                        <div class="food-image">
+                            <img src="static/KokamSarabat.png" alt="Kokum Sarbat">
+                            <button class="add-btn" data-item="Kokum Sarbat" data-price="20">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Kokum Sarbat</h4>
+                            <p>Sweet and tangy drink made from kokum fruit, perfect for summer</p>
+                            <div class="food-meta">
+                                <span class="price">₹20</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="30">
+                        <div class="food-image">
+                            <img src="static/solkadhii.jpg" alt="Solkadhi">
+                            <button class="add-btn" data-item="Solkadhi" data-price="30">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Solkadhi</h4>
+                            <p>Refreshing drink made from kokum and coconut milk, aids digestion</p>
+                            <div class="food-meta">
+                                <span class="price">₹30</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="25">
+                        <div class="food-image">
+                            <img src="static/Milk Shake.jpg" alt="Milk Shake">
+                            <button class="add-btn" data-item="Milk Shake" data-price="25">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Milk Shake</h4>
+                            <p>A Chilled, creamy beverages blended with milk Shake.</p>
+                            <div class="food-meta">
+                                <span class="price">₹25</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="15">
+                        <div class="food-image">
+                            <img src="static/Sodaa.jpg" alt="soda">
+                            <button class="add-btn" data-item="soda" data-price="15">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Soda</h4>
+                            <p>A carbonated fizzy beverage.</p>
+                            <div class="food-meta">
+                                <span class="price">₹15</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="food-card" data-price="25">
+                        <div class="food-image">
+                            <img src="static/aampanna.jpg" alt="Aam Panna">
+                            <button class="add-btn" data-item="Aam Panna" data-price="25">+</button>
+                        </div>
+                        <div class="food-info">
+                            <h4>Aam Panna</h4>
+                            <p>Raw mango drink, sweet and tangy, helps beat the heat</p>
+                            <div class="food-meta">
+                                <span class="price">₹25</span>
+                                <div class="rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+                                    <!-- Cart Modal -->
+                                    <div class="cart-modal" id="cartModal">
+                                        <div class="cart-content">
+                                            <div class="cart-header">
+                                                <h3>Your Cart</h3>
+                                                <button class="cart-close" id="cartClose">&times;</button>
+                                            </div>
+                                            <div class="cart-items" id="cartItems"></div>
+
+                                            <!-- Table Number Section -->
+                                            <div class="table-number-section">
+                                                <div class="table-input-container">
+                                                    <label for="tableNumber" class="table-label">Table Number:</label>
+                                                    <input type="number" id="tableNumber" placeholder="Enter table number (1-15)" class="table-input" min="1" max="15" required>
+                                                </div>
+                                                <div id="tableNumberError" class="input-error"></div>
+                                            </div>
+
+                                            <!-- Add discount code section -->
+                                            <div class="discount-code-section">
+                                                <div class="discount-input-container">
+                                                    <input type="text" id="discountCode" placeholder="Enter discount code" class="discount-input">
+                                                    <button class="apply-discount-btn" id="applyDiscountBtn">Apply</button>
+                                                </div>
+                                                <div class="discount-message" id="discountMessage"></div>
+                                            </div>
+
+                                            <div class="cart-footer">
+                                                <div class="cart-subtotal">Subtotal: ₹<span id="cartSubtotal">0</span></div>
+                                                <div class="cart-discount" id="cartDiscountContainer">Discount: -₹<span id="cartDiscount">0</span></div>
+                                                <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
+                                                <button class="checkout-btn" id="checkoutBtn" disabled>Checkout</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- UPI Payment Modal -->
+                                    <div id="payment-modal" class="payment-modal">
+                                        <div class="payment-content">
+                                            <div class="payment-header">
+                                                <h3>Secure UPI Payment</h3>
+                                                <button id="close-payment" class="payment-close">&times;</button>
+                                            </div>
+                                            <div class="payment-body">
+                                                <label for="upi">Enter UPI ID</label>
+                                                <input type="text" id="upi" placeholder="example@upi">
+
+                                                <label for="app">Select UPI App</label>
+                                                <select id="app" class="payment-select">
+        <option value="">-- Choose UPI App --</option>
+        <option value="gpay">Google Pay</option>
+        <option value="phonepe">PhonePe</option>
+        <option value="paytm">Paytm</option>
+        <option value="bhim">BHIM</option>
+      </select>
+
+                                                <!-- Payment summary populated from cart -->
+                                                <div class="payment-summary">
+                                                    <div class="summary-row">
+                                                        <span>Items</span>
+                                                        <span id="pay-items-count">0</span>
+                                                    </div>
+                                                    <div class="summary-row to-pay">
+                                                        <span>To Pay</span>
+                                                        <span>₹<span id="pay-amount">0</span></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="payment-actions">
+                                                    <button id="cancel-payment" class="cancel-payment-btn">Cancel</button>
+                                                    <button id="pay-now" class="pay-btn">Pay Now</button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Success Tick Animation Overlay -->
+                                            <div class="payment-success" id="payment-success" aria-hidden="true">
+                                                <div class="checkmark">
+                                                    <svg viewBox="0 0 72 72" class="check-svg" aria-hidden="true">
+                        <circle class="check-circle" cx="36" cy="36" r="32" fill="none" />
+                        <path class="check-path" fill="none" d="M20 37 L31 48 L52 26" />
+                    </svg>
+                                                    <div class="success-text">Payment Successful</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Receipt Modal -->
+
+                                    <div class="receipt-modal" id="receiptModal">
+                                        <div class="receipt-content">
+                                            <div class="receipt-header">
+                                                <div class="receipt-logo">
+                                                    <img src="static/GJC.png" alt="Scan-N-Dine Logo">
+                                                    <h2>Scan-N-Dine</h2>
+                                                </div>
+                                                <button class="receipt-close" id="receiptClose">&times;</button>
+                                            </div>
+
+                                            <div class="receipt-body" id="receiptBody">
+                                                <div class="receipt-info">
+                                                    <p class="thank-you">Thank you for your order!</p>
+                                                    <div class="order-info">
+                                                        <p><strong>Order #:</strong> <span id="receiptOrderId">SND-2025-0928</span></p>
+                                                        <p><strong>Table #:</strong> <span id="receiptTableNumber">-</span></p>
+                                                        <p><strong>Order Date:</strong> <span id="receiptDate">9/14/2025 6:25:53 PM</span></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="receipt-divider"></div>
+
+                                                <div class="receipt-items" id="receiptItemsList">
+                                                    <div class="receipt-item">
+                                                        <div class="item-info">
+                                                            <div class="item-name">Accel Smoothie Bowl</div>
+                                                            <div class="item-qty">Qty: 2</div>
+                                                        </div>
+                                                        <div class="item-price">₹698</div>
+                                                    </div>
+                                                    <div class="receipt-item">
+                                                        <div class="item-info">
+                                                            <div class="item-name">Fluffy Pancakes</div>
+                                                            <div class="item-qty">Qty: 2</div>
+                                                        </div>
+                                                        <div class="item-price">₹596</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="receipt-divider"></div>
+
+                                                <div class="receipt-totals">
+                                                    <div class="receipt-row">
+                                                        <span>Subtotal:</span>
+                                                        <span>₹<span id="receiptSubtotal">1294</span></span>
+                                                    </div>
+                                                    <div class="receipt-row discount-row" id="receiptDiscountRow">
+                                                        <span>Discount:</span>
+                                                        <span>-₹<span id="receiptDiscount">0</span></span>
+                                                    </div>
+                                                    <div class="receipt-row total-row">
+                                                        <span>Total Paid:</span>
+                                                        <span><span id="receiptTotal">1294</span></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="receipt-divider"></div>
+
+                                                <div class="receipt-footer">
+                                                    <p class="receipt-thankyou">Thank you for dining with us!</p>
+                                                    <p class="receipt-visit">We hope to see you again soon</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="receipt-actions">
+                                                <button class="print-receipt-btn" id="printReceiptBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9V3H18V9M6 9H4C2.89543 9 2 9.89543 2 11V17C2 18.1046 2.89543 19 4 19H6M6 9H18M18 9H20C21.1046 9 22 9.89543 22 11V17C22 18.1046 21.1046 19 20 19H18M18 19V21H6V19M18 19H6M15 15H9V13H15V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Print Receipt
+            </button>
+                                                <button class="download-receipt-btn" id="downloadReceiptBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M17 10L12 15M12 15L7 10M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Download Receipt
+            </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Toast Notifications -->
+                                    <div class="toast-container" id="toastContainer"></div>
+
+                                    <script src="static/script.js"></script>
+</body>
+
+</html>

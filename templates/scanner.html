@@ -1,0 +1,182 @@
+<!-- scanner.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Scanner</title>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1117;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 1rem;
+        }
+        
+        h2 {
+            margin-bottom: 1rem;
+        }
+        
+        #reader {
+            width: 320px;
+            max-width: 90vw;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        #result {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .btn {
+            margin-top: 1.5rem;
+            background-color: #ffffff10;
+            color: white;
+            border: 1px solid #ffffff30;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: #ffffff20;
+        }
+        
+        .card {
+            background: #161b22;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px #00000040;
+            padding: 2rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 320px;
+            margin-bottom: 2rem;
+        }
+        
+        .icon {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>QR Code Scanner</h2>
+    <div class="card">
+        <div class="icon">
+            <!-- Simple QR icon using SVG -->
+            <svg width="48" height="48" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7" rx="2"/>
+                <rect x="14" y="3" width="7" height="7" rx="2"/>
+                <rect x="14" y="14" width="7" height="7" rx="2"/>
+                <rect x="3" y="14" width="7" height="7" rx="2"/>
+            </svg>
+        </div>
+        <button class="btn" id="start-scan-btn">Start Scanning</button>
+        <button class="btn" id="stop-scan-btn" style="display:none; margin-left:0.5rem;">Stop Scanning</button>
+        <label class="btn" for="file-input" style="display:block; text-align:center; margin-top:0.5rem; cursor:pointer;">Scan an Image File</label>
+        <input type="file" id="file-input" accept="image/*" style="display:none;">
+        <div id="scan-status" style="margin-top:0.75rem; font-size:0.95rem; opacity:0.8;"></div>
+    </div>
+    
+    <div id="reader" style="display:none;"></div>
+    <div id="result"></div>
+    <a href="{{ url_for('home') }}" class="btn" style="margin-top:2rem;">← Back to Home</a>
+    <script>
+        const qrReader = new Html5Qrcode("reader");
+        const startScanBtn = document.getElementById("start-scan-btn");
+        const stopScanBtn = document.getElementById("stop-scan-btn");
+        const fileInput = document.getElementById("file-input");
+        const readerDiv = document.getElementById("reader");
+        const resultDiv = document.getElementById("result");
+        const scanStatus = document.getElementById('scan-status');
+        let scanning = false;
+
+
+        function isHttpUrl(text) {
+            try { const u = new URL(text); return u.protocol === 'http:' || u.protocol === 'https:'; } catch { return false; }
+        }
+
+        async function stopScanning() {
+            try {
+                if (scanning) {
+                    await qrReader.stop();
+                }
+            } catch (_) {}
+            scanning = false;
+            readerDiv.style.display = "none";
+            stopScanBtn.style.display = 'none';
+            startScanBtn.disabled = false;
+            if (scanStatus) scanStatus.textContent = '';
+        }
+
+        startScanBtn.onclick = async () => {
+            if (scanning) return; // prevent double start
+            readerDiv.style.display = "block";
+            startScanBtn.disabled = true;
+            stopScanBtn.style.display = 'inline-block';
+            if (scanStatus) scanStatus.textContent = 'Requesting camera...';
+            try {
+                await qrReader.start(
+                    { facingMode: "environment" },
+                    { fps: 10, qrbox: 250 },
+                    async (decodedText) => {
+                        resultDiv.innerText = `Scanned: ${decodedText}`;
+                        await stopScanning();
+                        if (isHttpUrl(decodedText)) {
+                            window.location.href = decodedText;
+                        }
+                    },
+                    (errorMsg) => {
+                        // per-frame decode errors are normal; keep silent
+                    }
+                );
+                scanning = true;
+                if (scanStatus) scanStatus.textContent = 'Scanner is active. Point your camera at a QR code.';
+            } catch (err) {
+                console.error('Camera start error:', err);
+                startScanBtn.disabled = false;
+                stopScanBtn.style.display = 'none';
+                readerDiv.style.display = "none";
+                if (scanStatus) {
+                    const hint = (location.protocol !== 'https:' && location.hostname !== 'localhost')
+                        ? ' Tip: Use https or access via localhost for camera permissions.'
+                        : '';
+                    scanStatus.textContent = 'Unable to access camera. ' + (err && err.message ? err.message : '') + hint;
+                }
+            }
+        };
+
+        stopScanBtn.onclick = stopScanning;
+
+        fileInput.onchange = (e) => {
+            if (e.target.files.length === 0) return;
+            const file = e.target.files[0];
+            qrReader.scanFile(file, true)
+                .then(decodedText => {
+                    resultDiv.innerText = `Scanned: ${decodedText}`;
+                    if (isHttpUrl(decodedText)) {
+                        window.location.href = decodedText;
+                    }
+                })
+                .catch(err => {
+                    resultDiv.innerText = "No QR code found in the image.";
+                });
+        };
+    </script>
+</body>
+
+</html>

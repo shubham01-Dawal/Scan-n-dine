@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #232e3a 0%, #1a2233 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        /* Decorative elements */
+        
+        .decor {
+            position: absolute;
+            z-index: 0;
+        }
+        
+        .decor.circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(51, 153, 255, 0.15) 0%, rgba(102, 204, 255, 0.1) 100%);
+            top: -150px;
+            right: -150px;
+        }
+        
+        .decor.square {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, rgba(102, 204, 255, 0.08) 0%, rgba(51, 153, 255, 0.12) 100%);
+            transform: rotate(45deg);
+            bottom: -100px;
+            left: -100px;
+        }
+        
+        .decor.triangle {
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 260px solid rgba(51, 153, 255, 0.1);
+            transform: rotate(30deg);
+            top: 50%;
+            left: 80%;
+        }
+        
+        .login-container {
+            background: rgba(26, 34, 51, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem 2rem 2rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+            width: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(51, 153, 255, 0.15);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #3399ff 0%, #66ccff 100%);
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(51, 153, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(51, 153, 255, 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(51, 153, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(51, 153, 255, 0);
+            }
+        }
+        
+        .logo i {
+            font-size: 28px;
+            color: white;
+        }
+        
+        .login-container h2 {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.8rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .login-container p {
+            color: #8a9db3;
+            text-align: center;
+            margin-top: 0.3rem;
+            font-size: 0.95rem;
+        }
+        
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .login-label {
+            color: #bfc9d1;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            display: block;
+            font-weight: 400;
+        }
+        
+        .login-input {
+            padding: 0.9rem 1rem 0.9rem 3rem;
+            border-radius: 8px;
+            border: 1px solid #2c3a4b;
+            background: rgba(35, 46, 58, 0.6);
+            color: #fff;
+            width: 100%;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .login-input:focus {
+            border: 1px solid #3399ff;
+            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.2);
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #66ccff;
+            font-size: 1.1rem;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+        }
+        
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember input {
+            margin-right: 8px;
+            accent-color: #3399ff;
+        }
+        
+        .remember label {
+            color: #bfc9d1;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .forgot-password {
+            color: #66ccff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .forgot-password:hover {
+            color: #3399ff;
+            text-decoration: underline;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #3399ff 0%, #66ccff 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem 0;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 1.2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(51, 153, 255, 0.3);
+            width: 100%;
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(135deg, #2677cc 0%, #4db8ff 100%);
+            box-shadow: 0 6px 20px rgba(51, 153, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .login-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .login-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+        }
+        
+        .login-btn:hover::after {
+            transform: rotate(30deg) translate(20%, 20%);
+        }
+        
+        .social-login {
+            margin: 1.5rem 0;
+        }
+        
+        .social-text {
+            position: relative;
+            text-align: center;
+            color: #8a9db3;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .social-text::before,
+        .social-text::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #3a4a5f, transparent);
+        }
+        
+        .social-text::before {
+            left: 0;
+        }
+        
+        .social-text::after {
+            right: 0;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(35, 46, 58, 0.7);
+            color: #66ccff;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            border: 1px solid #3a4a5f;
+        }
+        
+        .social-icon:hover {
+            background: rgba(51, 153, 255, 0.15);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(51, 153, 255, 0.2);
+        }
+        
+        .back-link {
+            text-align: center;
+            color: #bfc9d1;
+            font-size: 0.97rem;
+            margin-top: 0.5rem;
+        }
+        
+        .back-link a {
+            color: #66ccff;
+            text-decoration: none;
+            margin-left: 3px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .back-link a:hover {
+            color: #3399ff;
+            text-decoration: underline;
+        }
+        /* Responsive design */
+        
+        @media (max-width: 480px) {
+            .login-container {
+                width: 90%;
+                padding: 1.8rem 1.5rem;
+            }
+            .decor.circle {
+                width: 200px;
+                height: 200px;
+                top: -100px;
+                right: -100px;
+            }
+            .decor.square {
+                width: 150px;
+                height: 150px;
+                bottom: -75px;
+                left: -75px;
+            }
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- ✅ FORM: Now posts to Flask backend -->
+    <form class="login-container" action="{{ url_for('login') }}" method="POST">
+        <div class="login-header">
+            <div class="logo">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2>Login</h2>
+            <p>Welcome back! Please enter your details</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+        <div class="flash {{ 'flash-' + category if category else '' }}">
+            <i class="fas {{ 'fa-triangle-exclamation' if category == 'error' else 'fa-circle-check' }}"></i>
+            <span>{{ message }}</span>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+
+        <div class="input-group">
+            <label class="login-label" for="username">User name</label>
+            <i class="fas fa-user input-icon"></i>
+            <input class="login-input" type="text" id="username" name="username" placeholder="Enter your username" required />
+        </div>
+
+        <div class="input-group">
+            <label class="login-label" for="password">Password</label>
+            <i class="fas fa-key input-icon"></i>
+            <input class="login-input" type="password" id="password" name="password" placeholder="Enter your password" required />
+        </div>
+
+        <div class="options">
+            <div class="remember">
+                <input type="checkbox" id="remember" />
+                <label for="remember">Remember me</label>
+
+            </div>
+        </div>
+
+        <button class="login-btn" type="submit">Login</button>
+
+        <div class="back-link">
+            Go back to <a href="{{ url_for('home') }}">Home</a>
+        </div>
+    </form>
+
+    <script>
+        // Input animation
+        document.querySelectorAll(".login-input").forEach((input) => {
+            input.addEventListener("focus", function() {
+                this.parentElement.style.transform = "scale(1.02)";
+            });
+
+            input.addEventListener("blur", function() {
+                this.parentElement.style.transform = "scale(1)";
+            });
+        });
+
+        // Fade in animation
+        setTimeout(() => {
+            document.querySelector(".login-container").style.animation =
+                "fadeInUp 0.8s ease-out forwards";
+        }, 100);
+    </script>
+</body>
+
+</html>

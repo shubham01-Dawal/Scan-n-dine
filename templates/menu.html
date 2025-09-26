@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan-N-Dine Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0e1624;
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #10182f;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            color: #a855f7;
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        nav button {
+            min-width: 100px;
+            padding: 10px 18px;
+            border: none;
+            background-color: #4c1d95;
+            color: white;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        nav button:hover {
+            background-color: #6d28d9;
+        }
+        
+        nav button.active {
+            background-color: #a855f7;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        /* Menu Management Styles */
+        
+        .form-section {
+            background-color: #1e293b;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .form-section h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .form-section input,
+        .form-section textarea,
+        .form-section select {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #334155;
+            color: white;
+        }
+        
+        .form-section button {
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .category-title {
+            font-size: 1.2rem;
+            text-transform: capitalize;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #93c5fd;
+        }
+        
+        .item-card {
+            background-color: #334155;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .item-card img {
+            height: 100px;
+            width: 100px;
+            border-radius: 5px;
+            object-fit: cover;
+            align-self: center;
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-info h4 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .item-info p {
+            margin: 4px 0;
+            font-size: 0.9rem;
+        }
+        
+        .item-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .item-actions button {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .item-actions .edit {
+            background-color: #facc15;
+            color: black;
+        }
+        
+        .item-actions .delete {
+            background-color: #ef4444;
+            color: white;
+        }
+        /* Order Status Styles */
+        
+        .orders-header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .orders-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .orders-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            padding-left: 45px;
+            border: 1px solid #334155;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #1e293b;
+            color: white;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background: #1e293b;
+            color: white;
+            border: 1px solid #334155;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .filter-btn.active {
+            background: #6a11cb;
+            color: white;
+            border-color: #6a11cb;
+        }
+        
+        .filter-btn:hover:not(.active) {
+            background: #2d3748;
+        }
+        
+        .orders-table {
+            background: #1e293b;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        th,
+        td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+        
+        th {
+            background-color: #10182f;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        tbody tr {
+            transition: background-color 0.2s;
+        }
+        
+        tbody tr:hover {
+            background-color: #2d3748;
+        }
+        
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .status.completed {
+            background-color: rgba(0, 166, 90, 0.2);
+            color: #00a65a;
+        }
+        
+        .status.pending {
+            background-color: rgba(245, 124, 0, 0.2);
+            color: #f57c00;
+        }
+        
+        .status.preparing {
+            background-color: rgba(26, 115, 232, 0.2);
+            color: #1a73e8;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .actions button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .actions .view-btn {
+            background: #6a11cb;
+            color: white;
+        }
+        
+        .actions .view-btn:hover {
+            background: #5a0fb8;
+        }
+        
+        .actions .complete-btn {
+            background: #00a65a;
+            color: white;
+        }
+        
+        .actions .complete-btn:hover {
+            background: #008f4e;
+        }
+        
+        .actions .cancel-btn {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .actions .cancel-btn:hover {
+            background: #dc2626;
+        }
+        
+        .order-items {
+            font-size: 14px;
+            color: #bfc9d1;
+        }
+        
+        .order-total {
+            font-weight: 600;
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+            font-size: 14px;
+        }
+        /* Modal Styles */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: #1e293b;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            color: #a855f7;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .order-details {
+            margin-bottom: 20px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .detail-label {
+            width: 120px;
+            font-weight: 600;
+            color: #93c5fd;
+        }
+        
+        .detail-value {
+            flex: 1;
+        }
+        
+        .items-list {
+            margin-top: 20px;
+        }
+        
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .item-name {
+            flex: 2;
+        }
+        
+        .item-quantity {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .item-price {
+            flex: 1;
+            text-align: right;
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        /* Media Queries */
+        
+        @media (min-width: 600px) {
+            .item-card {
+                flex-direction: row;
+                align-items: center;
+            }
+            .item-card img {
+                height: 60px;
+                width: 60px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box {
+                width: 100%;
+            }
+            .filter-buttons {
+                justify-content: center;
+            }
+            th,
+            td {
+                padding: 12px 15px;
+            }
+            .actions {
+                flex-direction: column;
+            }
+            .actions button {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Scan-N-Dine</h1>
+            <nav>
+                <button class="active" data-tab="menu">Menu</button>
+                <button data-tab="orders">Orders</button>
+                <button onclick="logout()">Logout</button>
+            </nav>
+        </header>
+
+        <!-- Menu Management Tab -->
+        <section id="menu-tab" class="tab-content active">
+            <h2>Admin Menu Management</h2>
+            <section class="form-section">
+                <h3>Add or Update Item</h3>
+                <form id="menuItemForm" onsubmit="event.preventDefault(); saveItem();">
+                    <!-- Existing categories from server -->
+                    <label for="category_id">Category</label>
+                    <select id="category_id" name="category_id">
+                        <!-- populated by loadCategories() -->
+                    </select>
+
+                    <input type="text" id="itemName" name="name" placeholder="Name" required />
+                    <textarea id="itemDescription" name="description" placeholder="Description"></textarea>
+                    <input type="number" id="itemPrice" name="price" step="0.01" placeholder="Price (₹)" required />
+                    <input type="text" id="imageUrl" name="image_url" placeholder="Image URL or /static/... path" />
+                    <small id="imageHelp" style="display:block;margin-top:4px;color:#bfc9d1;">
+                        Enter a full URL (https://...) or a path under /static (e.g., /static/images/pic.png). Supported: .jpg, .jpeg, .png
+                    </small>
+                    <img id="imagePreview" alt="Image preview" style="display:none;margin-top:8px;width:100px;height:100px;object-fit:cover;border-radius:5px;background:#0b1220;" />
+
+                    <div style="display:flex;align-items:center;gap:8px;margin:8px 0;">
+                        <input type="checkbox" id="itemAvailable" name="is_available" checked />
+                        <label for="itemAvailable">Available</label>
+                    </div>
+
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button type="submit">Save Item</button>
+                        <button type="button" onclick="clearForm()" style="background:#64748b;">Reset</button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="menuContainer"></section>
+        </section>
+
+        <!-- Orders Tab -->
+        <section id="orders-tab" class="tab-content">
+            <div class="orders-header">
+                <h2>Scan-N-Dine</h2>
+                <p>Order Management System</p>
+            </div>
+
+            <div class="controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search orders...">
+                </div>
+
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Orders</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                    <button class="filter-btn" data-filter="pending">Pending</button>
+                </div>
+            </div>
+
+            <div class="orders-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Table Number</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTbody">
+                        <!-- Orders will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer">
+                <p>© 2025 Scan-N-Dine. All rights reserved.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Order Details</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="order-details">
+                <div class="detail-row">
+                    <div class="detail-label">Order ID:</div>
+                    <div class="detail-value" id="modal-order-id"></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Table Number:</div>
+                    <div class="detail-value" id="modal-table-number"></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Customer Name:</div>
+                    <div class="detail-value" id="modal-customer-name"></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Status:</div>
+                    <div class="detail-value" id="modal-status"></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Order Time:</div>
+                    <div class="detail-value" id="modal-order-time"></div>
+                </div>
+
+                <h3 style="margin-top: 20px;">Order Items</h3>
+                <div class="items-list" id="modal-items-list">
+                    <!-- Items will be inserted here by JavaScript -->
+                </div>
+
+                <div class="detail-row" style="margin-top: 20px;">
+                    <div class="detail-label">Total:</div>
+                    <div class="detail-value" id="modal-total" style="font-weight: bold;"></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="complete-btn" id="modal-complete-btn" style="display: none;">Complete Order</button>
+                <button class="cancel-btn" id="modal-cancel-btn" style="display: none;">Cancel Order</button>
+                <button class="view-btn" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu Management Functions
+        let categories = [];
+        let menuItems = [];
+        let currentEditingItem = null;
+
+        // Image URL validation helpers
+        function hasImageExtension(v) {
+            return /\.(jpg|jpeg|png)(?:\?.*)?$/i.test((v||'').trim());
+        }
+
+        function isLikelyRemoteUrl(v) {
+            return /^(https?:)\/\//i.test((v||'').trim());
+        }
+
+        function isStaticPath(v) {
+            const x = (v||'').trim();
+            return x.startsWith('/static/') || x.startsWith('static/');
+        }
+
+        function isWindowsPath(v) {
+            return /^[a-zA-Z]:\\/.test((v||'').trim());
+        }
+
+        function normalizeImagePath(v) {
+            if (!v) return '';
+            let s = String(v).trim();
+            // Convert backslashes to slashes
+            s = s.replace(/\\+/g, '/');
+            // If starts with static/, add leading slash for consistency
+            if (s.toLowerCase().startsWith('static/')) s = '/' + s;
+            return s;
+        }
+
+        function validateAndPreviewImageInput() {
+            const input = document.getElementById('imageUrl');
+            const help = document.getElementById('imageHelp');
+            const preview = document.getElementById('imagePreview');
+            if (!input || !help || !preview) return true;
+
+            let raw = input.value || '';
+            let normalized = normalizeImagePath(raw);
+            if (normalized !== raw) {
+                // Do not overwrite user typing too aggressively; only update help text
+            }
+
+            if (!normalized) {
+                help.textContent = 'Optional. Leave empty for no image.';
+                help.style.color = '#bfc9d1';
+                preview.style.display = 'none';
+                preview.src = '';
+                return true;
+            }
+
+            const validShape = (isLikelyRemoteUrl(normalized) || isStaticPath(normalized) || isWindowsPath(normalized)) && hasImageExtension(normalized);
+            if (!validShape) {
+                help.textContent = 'Invalid image path. Use https://... or /static/... and ensure it ends with .jpg, .jpeg, or .png';
+                help.style.color = '#ef4444';
+                preview.style.display = 'none';
+                preview.src = '';
+                return false;
+            }
+
+            if (isWindowsPath(normalized)) {
+                help.textContent = 'Local drive paths (e.g., C:\\...) are not directly accessible in the browser. Please move the image into your app\'s static/ folder and use a path like /static/images/your-file.png';
+                help.style.color = '#f59e0b';
+                preview.style.display = 'none';
+                preview.src = '';
+                return false;
+            }
+
+            // At this point, remote URL or static path with correct extension
+            help.textContent = 'Looks good.';
+            help.style.color = '#22c55e';
+            preview.onerror = () => { preview.style.display = 'none'; };
+            preview.onload = () => { preview.style.display = 'block'; };
+            preview.src = normalized;
+            return true;
+        }
+
+        // Load categories from server and populate the select
+        async function loadCategories() {
+            try {
+                const response = await fetch('/api/categories', { credentials: 'same-origin' });
+                if (response.ok) {
+                    categories = await response.json();
+                    const sel = document.getElementById('category_id');
+                    if (sel) {
+                        sel.innerHTML = '<option value="">-- Select existing category --</option>' +
+                            categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+                    }
+                } else {
+                    console.error('Failed to load categories');
+                }
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+
+        // Load menu items from server
+        async function loadMenuItems() {
+            try {
+                const response = await fetch('/api/menu-items', { credentials: 'same-origin' });
+                if (response.ok) {
+                    menuItems = await response.json();
+                    renderMenu();
+                } else {
+                    console.error('Failed to load menu items');
+                }
+            } catch (error) {
+                console.error('Error loading menu items:', error);
+            }
+        }
+
+        // Add or update menu item
+        async function saveItem() {
+            const form = document.getElementById('menuItemForm');
+            const formData = new FormData(form);
+
+            // Validate form
+            const hasName = (formData.get('name') || '').toString().trim() !== '';
+            const hasPrice = (formData.get('price') || '').toString().trim() !== '';
+            const hasCategory = (formData.get('category_id') || '').toString().trim() !== '';
+            if (!hasName || !hasPrice || !hasCategory) {
+                alert('Please select a category and fill required fields (name and price).');
+                return;
+            }
+
+            // Validate and normalize image URL/path
+            const rawImage = (formData.get('image_url') || '').toString();
+            const normalizedImage = normalizeImagePath(rawImage);
+            if (rawImage !== normalizedImage) {
+                formData.set('image_url', normalizedImage);
+            }
+            if (normalizedImage) {
+                if (!hasImageExtension(normalizedImage) || (!isLikelyRemoteUrl(normalizedImage) && !isStaticPath(normalizedImage) && !isWindowsPath(normalizedImage))) {
+                    alert('Invalid image path. Use a full URL (https://...) or a path under /static, and ensure it ends with .jpg, .jpeg, or .png');
+                    return;
+                }
+                if (isWindowsPath(normalizedImage)) {
+                    alert('Local drive paths like C:\\... cannot be loaded by browsers. Please copy the image into the project\'s static/ folder and reference it as /static/your-folder/your-file.png');
+                    return;
+                }
+            }
+
+            try {
+                let response;
+                if (currentEditingItem) {
+                    // Update existing item
+                    response = await fetch(`/api/menu-items/${currentEditingItem.id}`, {
+                        method: 'PUT',
+                        body: formData,
+                        credentials: 'same-origin'
+                    });
+                } else {
+                    // Add new item
+                    response = await fetch('/api/menu-items', {
+                        method: 'POST',
+                        body: formData,
+                        credentials: 'same-origin'
+                    });
+                }
+
+                if (response.ok) {
+                    await response.json().catch(() => ({}));
+                    clearForm();
+                    await loadMenuItems(); // Reload items from server
+                    alert(currentEditingItem ? 'Item updated successfully!' : 'Item added successfully!');
+                    currentEditingItem = null;
+                } else {
+                    const t = await response.text();
+                    alert('Error saving item. ' + (t || 'Please try again.'));
+                }
+            } catch (error) {
+                console.error('Error saving item:', error);
+                alert('Error saving item. Please try again.');
+            }
+        }
+
+        // Render menu items grouped by category name
+        function renderMenu() {
+            const container = document.getElementById('menuContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const itemsByCategoryId = {};
+            menuItems.forEach(item => {
+                const key = item.category_id || 0;
+                (itemsByCategoryId[key] ||= []).push(item);
+            });
+
+            categories.forEach(category => {
+                const list = itemsByCategoryId[category.id] || [];
+                if (list.length === 0) return;
+                const title = document.createElement('h3');
+                title.className = 'category-title';
+                title.textContent = category.name;
+                container.appendChild(title);
+
+                list.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'item-card';
+                    card.innerHTML = `
+                        ${item.image_url ? `<img src="${item.image_url}" alt="${item.name}" />` : ''}
+                        <div class="item-info">
+                            <h4>${item.name} ${item.is_available ? '' : '(Unavailable)'}</h4>
+                            <p>${item.description || 'No description'}</p>
+                            <strong>₹${item.price}</strong>
+                        </div>
+                        <div class="item-actions">
+                            <button class="edit" onclick="editItem(${item.id})">Edit</button>
+                            <button class="delete" onclick="deleteItem(${item.id})">Delete</button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+        }
+
+        // Tab Switching Functionality
+        document.querySelectorAll('nav button[data-tab]').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active tab button
+                document.querySelectorAll('nav button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+
+                // Show the corresponding tab content
+                const tabId = this.getAttribute('data-tab') + '-tab';
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Live Orders Management
+        let ORDERS_CACHE = [];
+
+        function statusBadge(status) {
+            const s = (status || '').toLowerCase();
+            if (s === 'completed') return '<span class="status completed">Completed</span>';
+            if (s === 'cancelled') return '<span class="status" style="background-color:rgba(239,68,68,0.2);color:#ef4444;">Cancelled</span>';
+            if (s === 'preparing') return '<span class="status preparing">Preparing</span>';
+            return '<span class="status pending">Pending</span>';
+        }
+
+        async function fetchOrders() {
+            const res = await fetch('/api/orders', {
+                credentials: 'same-origin'
+            });
+            if (!res.ok) throw new Error('Failed to load orders');
+            const data = await res.json();
+            ORDERS_CACHE = Array.isArray(data) ? data : [];
+            renderOrders();
+        }
+
+        function renderOrders() {
+            const tbody = document.getElementById('ordersTbody');
+            const searchText = (document.getElementById('searchInput').value || '').toLowerCase();
+            const activeFilterBtn = document.querySelector('.filter-btn.active');
+            const filter = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
+
+            const rows = ORDERS_CACHE
+                .filter(o => {
+                    const text = `${o.order_number || ''} ${o.table_number || ''} ${o.final_amount || o.total_amount || ''} ${(o.status || '')}`.toLowerCase();
+                    const matchesSearch = !searchText || text.includes(searchText);
+                    const s = (o.status || '').toLowerCase();
+                    const matchesFilter = filter === 'all' || s === filter;
+                    return matchesSearch && matchesFilter;
+                })
+                .map(o => {
+                    const total = (o.final_amount != null ? o.final_amount : o.total_amount) || 0;
+                    return `
+                        <tr data-id="${o.id}">
+                            <td>${o.order_number || o.id}</td>
+                            <td>${o.table_number || '-'}</td>
+                            <td style="max-width:360px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${o.items_summary || ''}">${o.items_summary || '-'}</td>
+                            <td class="order-total">₹ ${Number(total).toFixed(2)}</td>
+                            <td>${statusBadge(o.status)}</td>
+                            <td class="actions">
+                                <button class="complete-btn" data-action="status" data-status="completed" data-id="${o.id}">Complete</button>
+                                <button class="cancel-btn" data-action="delete" data-id="${o.id}">Cancel</button>
+                                <button class="view-btn" style="background:#9ca3af;color:#111827;" data-action="status" data-status="pending" data-id="${o.id}">Mark Pending</button>
+                            </td>
+                        </tr>`;
+                })
+                .join('');
+
+            tbody.innerHTML = rows || '<tr><td colspan="6" style="text-align:center;color:#bfc9d1;">No orders yet.</td></tr>';
+        }
+
+        async function updateOrderStatus(id, status) {
+            const res = await fetch(`/api/orders/${id}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify({
+                    status
+                })
+            });
+            if (!res.ok) {
+                alert('Failed to update status');
+                return;
+            }
+            await fetchOrders();
+        }
+
+        async function viewOrder(id) {
+            const res = await fetch(`/api/orders/${id}`, {
+                credentials: 'same-origin'
+            });
+            if (!res.ok) return alert('Failed to load order');
+            const order = await res.json();
+            const modal = document.getElementById('orderModal');
+            document.getElementById('modal-order-id').textContent = order.order_number || order.id;
+            document.getElementById('modal-table-number').textContent = order.table_number || '-';
+            document.getElementById('modal-customer-name').textContent = order.customer_name || '-';
+            document.getElementById('modal-status').textContent = (order.status || '').toUpperCase();
+            document.getElementById('modal-order-time').textContent = order.created_at || '';
+            document.getElementById('modal-total').textContent = `₹ ${(order.final_amount != null ? order.final_amount : order.total_amount) || 0}`;
+
+            const itemsList = document.getElementById('modal-items-list');
+            itemsList.innerHTML = (order.items || []).map(it => `
+                <div class="item-row">
+                    <div class="item-name">${it.name || '-'}</div>
+                    <div class="item-quantity">${it.quantity}</div>
+                    <div class="item-price">₹ ${Number(it.price).toFixed(2)}</div>
+                </div>
+            `).join('');
+
+            // Show or hide modal action buttons
+            const showComplete = order.status !== 'completed';
+            const showCancel = order.status !== 'cancelled';
+            const completeBtn = document.getElementById('modal-complete-btn');
+            const cancelBtn = document.getElementById('modal-cancel-btn');
+            completeBtn.style.display = showComplete ? '' : 'none';
+            cancelBtn.style.display = showCancel ? '' : 'none';
+            completeBtn.onclick = () => updateOrderStatus(order.id, 'completed');
+            cancelBtn.onclick = () => updateOrderStatus(order.id, 'cancelled');
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        // Event wiring
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const tbody = document.getElementById('ordersTbody');
+            const imageInput = document.getElementById('imageUrl');
+
+            // Initial fetch & polling
+            fetchOrders();
+            setInterval(fetchOrders, 5000);
+
+            // Search
+            if (searchInput) {
+                searchInput.addEventListener('input', () => renderOrders());
+            }
+
+            // Image input validation and live preview
+            if (imageInput) {
+                imageInput.addEventListener('input', validateAndPreviewImageInput);
+                imageInput.addEventListener('blur', validateAndPreviewImageInput);
+            }
+
+            // Filters
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    renderOrders();
+                });
+            });
+
+            // Actions via event delegation
+            tbody.addEventListener('click', (e) => {
+                const target = e.target.closest('button');
+                if (!target) return;
+                const action = target.getAttribute('data-action');
+                const id = target.getAttribute('data-id');
+                if (action === 'status') {
+                    const status = target.getAttribute('data-status');
+                    return updateOrderStatus(id, status);
+                }
+                if (action === 'delete') {
+                    return deleteOrder(id);
+                }
+            });
+        });
+
+        async function deleteOrder(id) {
+            if (!confirm('Are you sure you want to cancel and delete this order?')) return;
+            try {
+                const res = await fetch(`/api/orders/${id}`, {
+                    method: 'DELETE',
+                    credentials: 'same-origin'
+                });
+                if (!res.ok) {
+                    alert('Failed to delete order');
+                    return;
+                }
+                const data = await res.json();
+                if (data && data.deleted) {
+                    alert('Order cancelled and deleted.');
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Failed to delete order');
+            }
+            await fetchOrders();
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategories();
+            loadMenuItems();
+        });
+
+        // Rely on Flask server-side session to guard /admin/menu; no client-side redirect needed.
+
+        // Load categories from server (implementation moved above)
+        async function loadCategoriesLegacy() {
+            try {
+                const response = await fetch('/api/categories');
+                if (response.ok) {
+                    categories = await response.json();
+                } else {
+                    console.error('Failed to load categories');
+                }
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+
+        // Load menu items from server (kept above)
+
+        // saveItem implemented above
+
+        // renderMenu implemented above
+
+// Edit menu item
+async function editItem(itemId) {
+    try {
+        const item = menuItems.find(i => i.id === itemId);
+        if (item) {
+            currentEditingItem = item;
+            
+            // Populate form
+            const catSel = document.getElementById("category_id");
+            if (catSel) { catSel.value = item.category_id || ''; }
+            document.getElementById("itemName").value = item.name;
+            document.getElementById("itemDescription").value = item.description || '';
+            document.getElementById("itemPrice").value = item.price;
+            document.getElementById("itemAvailable").checked = item.is_available;
+            document.getElementById("imageUrl").value = item.image_url || '';
+            
+            // Scroll to form
+            document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+
+            // Validate and preview current image value
+            validateAndPreviewImageInput();
+        }
+    } catch (error) {
+        console.error('Error loading item:', error);
+        alert('Error loading item details.');
+    }
+}
+
+// Delete menu item
+async function deleteItem(itemId) {
+    if (!confirm('Are you sure you want to delete this item?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/menu-items/${itemId}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            await loadMenuItems(); // Reload items from server
+            alert('Item deleted successfully!');
+        } else {
+            alert('Error deleting item. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error deleting item:', error);
+        alert('Error deleting item. Please try again.');
+    }
+}
+
+// Clear form
+function clearForm() {
+    const form = document.getElementById("menuItemForm");
+    if (form) form.reset();
+    const catSel = document.getElementById('category_id');
+    if (catSel) catSel.value = '';
+    currentEditingItem = null;
+}
+
+// Logout
+function logout() {
+    sessionStorage.removeItem('admin_logged_in');
+    window.location.href = '/logout';
+}
+    </script>
+</body>
+
+</html>
